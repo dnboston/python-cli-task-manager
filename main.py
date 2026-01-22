@@ -1,9 +1,10 @@
 def show_menu():
         menu = [
-            "Task Manager"
+            "Task Manager",
             "1. Add task",
             "2. List tasks",
-            "3. Exit"
+            "3. Mark task as done",
+            "4. Exit"
         ]
 
         print("\n".join(menu))  
@@ -26,6 +27,27 @@ def list_tasks(tasks):
         status = "✓" if task["done"] else " "
         print(f"{index}. [{status}] {task["title"]}")  
 
+def mark_task_done(tasks):
+    if not tasks:
+        print("No tasks to mark.")
+        return
+    
+    list_tasks(tasks)
+
+    try:
+        task_number = int(input("Enter task number to mark as done: "))
+        index = task_number - 1
+
+        if index < 0 or index >= len(tasks):
+            print("Invalid task number")
+            return
+        
+        tasks[index]["done"] = True
+        print("Task marked as done.")
+
+    except ValueError:
+        print("Please enter a valid numnber.")
+
 def main():
     tasks = []
 
@@ -38,8 +60,9 @@ def main():
         elif choice == "2":
             list_tasks(tasks)
         elif choice == "3":
+            mark_task_done(tasks)
+        elif choice == "4":
             print("Goodbye!")
-            break
         else:
             print("Invalid option. Try again.")
 
