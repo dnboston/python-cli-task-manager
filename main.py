@@ -4,7 +4,8 @@ def show_menu():
             "1. Add task",
             "2. List tasks",
             "3. Mark task as done",
-            "4. Exit"
+            "4. Delete task",
+            "5. Exit"
         ]
 
         print("\n".join(menu))  
@@ -48,6 +49,27 @@ def mark_task_done(tasks):
     except ValueError:
         print("Please enter a valid numnber.")
 
+def delete_task(tasks):
+    if not tasks:
+        print("No tasks to delete.")
+        return
+    
+    list_tasks(tasks)
+
+    try:
+        task_number = int(input("Enter task number to delete: "))
+        index = task_number - 1
+
+        if index < 0 or index >= len(tasks):
+            print("Invalid task number")
+            return
+        
+        deleted_task = tasks.pop(index)
+        print(f"Deleted task: {deleted_task["title"]}")
+
+    except ValueError:
+        print("Please enter a valid numnber.")
+
 def main():
     tasks = []
 
@@ -62,6 +84,8 @@ def main():
         elif choice == "3":
             mark_task_done(tasks)
         elif choice == "4":
+            delete_task(tasks)
+        elif choice == "5":
             print("Goodbye!")
         else:
             print("Invalid option. Try again.")
