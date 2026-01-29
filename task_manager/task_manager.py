@@ -10,7 +10,7 @@ class TaskManager:
         task = Task(title)
         self.tasks.append(task)
         save_tasks(self.tasks)
-        print("Task added.")
+        print("✓ Task added successfully.")
 
     def list_tasks(self):
         if not self.tasks:
@@ -49,7 +49,7 @@ class TaskManager:
             
         self.tasks[index].done = True
         save_tasks(self.tasks)
-        print("Task marked as done.")
+        print("✓ Task marked as done.")
 
     def delete_task(self):
         if not self.tasks:
@@ -58,7 +58,7 @@ class TaskManager:
         
         self.list_tasks()
 
-        index = self.get_task_index("Enter task number to mark as done: ")
+        index = self.get_task_index("Enter task number to delete: ")
         if index is None:
             return
 
