@@ -6,3 +6,13 @@ def test_task_initial_state():
 
     assert task.title == "Test task"
     assert task.done is False
+
+
+def test_task_default_priority():
+    task = Task("Test")
+    assert task.priority == "medium"
+
+
+def test_task_custom_priority():
+    task = Task("Test", "high")
+    assert task.priority == "high"

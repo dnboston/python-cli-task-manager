@@ -5,11 +5,11 @@ class TaskManager:
     def __init__(self, tasks=None):
         self.tasks = tasks if tasks is not None else load_tasks()
 
-    def add_task_from_cli(self, title):
-        task = Task(title)
+    def add_task_from_cli(self, title, priority):
+        task = Task(title, priority)
         self.tasks.append(task)
         save_tasks(self.tasks)
-        print("✓ Task added successfully.")
+        print(f"✓ Task added with priority '{priority}'.")
 
     def list_tasks(self):
         if not self.tasks:
@@ -18,7 +18,7 @@ class TaskManager:
         
         for index, task in enumerate(self.tasks, start=1):
             status = "✓" if task.done else " "
-            print(f"{index}. [{status}] {task.title}")  
+            print(f"{index}. [{status}] ({task.priority}) {task.title}")  
 
     def get_task_index(self, prompt):
         try:
