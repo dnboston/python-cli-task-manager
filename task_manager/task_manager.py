@@ -1,6 +1,10 @@
 from task_manager.task import Task
 from task_manager.storage import save_tasks, load_tasks
 
+
+PRIORITY_ORDER = {"high": 3, "medium": 2, "low": 1}
+
+
 class TaskManager:
     def __init__(self, tasks=None):
         self.tasks = tasks if tasks is not None else load_tasks()
@@ -16,9 +20,11 @@ class TaskManager:
             print("No tasks yet.")
             return
         
-        for index, task in enumerate(self.tasks, start=1):
+        sorted_tasks = sorted(self.tasks, key=lambda task: PRIORITY_ORDER.get(task.priority, 2), reverse=True)
+        
+        for index, task in enumerate(sorted_tasks, start=1):
             status = "✓" if task.done else " "
-            print(f"{index}. [{status}] ({task.priority}) {task.title}")  
+            print(f"{index}. [{status}] ({task.priority.upper()}) {task.title}")  
 
     def get_task_index(self, prompt):
         try:

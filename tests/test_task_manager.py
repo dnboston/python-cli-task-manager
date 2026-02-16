@@ -1,5 +1,5 @@
 from task_manager.task import Task
-from task_manager.task_manager import TaskManager
+from task_manager.task_manager import TaskManager, PRIORITY_ORDER
 
 
 def test_task_manager_starts_with_tasks():
@@ -27,3 +27,16 @@ def test_delete_task_removes_task():
 
     assert len(manager.tasks) == 1
     assert manager.tasks[0].title == "Task 2"
+
+def test_tasks_are_sorted_by_priority():
+    task1 = Task("Low task", priority="low")
+    task2 = Task("High task", priority="high")
+    task3 = Task("Medium task", priority="medium")
+
+    manager = TaskManager(tasks=[task1, task2, task3])
+
+    sorted_tasks = sorted(manager.tasks, key=lambda task: PRIORITY_ORDER.get(task.priority, 2), reverse=True)
+
+    assert sorted_tasks[0].priority == "high"
+    assert sorted_tasks[1].priority == "medium"
+    assert sorted_tasks[2].priority == "low"
