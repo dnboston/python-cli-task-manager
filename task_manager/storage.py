@@ -15,7 +15,8 @@ def save_tasks(tasks):
         data.append({
             "title": task.title,
             "done": task.done,
-            "priority": task.priority
+            "priority": task.priority,
+            "due_date": task.due_date
         })
 
     with open(TASKS_FILE, "w") as file:
@@ -33,8 +34,9 @@ def load_tasks():
         tasks = []
         for item in data:
             priority = item.get("priority", "medium")
-            task = Task(item["title"], priority)
-            task.done = item["done"]
+            due_date = item.get("due_date")
+
+            task = Task(title=item["title"], priority=priority, done=item.get("done", False), due_date=due_date)
             tasks.append(task)
 
         return tasks

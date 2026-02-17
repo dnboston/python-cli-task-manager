@@ -14,5 +14,15 @@ def test_task_default_priority():
 
 
 def test_task_custom_priority():
-    task = Task("Test", "high")
+    task = Task("Test", priority="high")
     assert task.priority == "high"
+
+
+def test_task_default_due_date():
+    task = Task("Test")
+    assert task.due_date is None
+
+
+def test_task_with_due_date():
+    task = Task("Test", due_date="2026-02-20")
+    assert task.due_date == "2026-02-20"
