@@ -28,6 +28,7 @@ def test_delete_task_removes_task():
     assert len(manager.tasks) == 1
     assert manager.tasks[0].title == "Task 2"
 
+
 def test_tasks_are_sorted_by_priority():
     task1 = Task("Low task", priority="low")
     task2 = Task("High task", priority="high")
@@ -40,3 +41,13 @@ def test_tasks_are_sorted_by_priority():
     assert sorted_tasks[0].priority == "high"
     assert sorted_tasks[1].priority == "medium"
     assert sorted_tasks[2].priority == "low"
+
+
+def test_clear_tasks():
+    task1 = Task("Task 1")
+    task2 = Task("Task 2")
+    manager = TaskManager(tasks=[task1, task2])
+
+    manager.clear_tasks()
+
+    assert manager.tasks == []

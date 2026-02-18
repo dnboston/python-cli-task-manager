@@ -24,6 +24,9 @@ def main():
     delete_parser = subparsers.add_parser("delete", help="Delete a task")
     delete_parser.add_argument("index", type=int, help="Task number")
 
+    # Clear command
+    clear_parser = subparsers.add_parser("clear", help="Delete all tasks")
+
     args = parser.parse_args()
 
     task_manager = TaskManager()
@@ -36,6 +39,8 @@ def main():
         task_manager.mark_task_done_from_cli(args.index)
     elif args.command == "delete":
         task_manager.delete_task_from_cli(args.index)
+    elif args.command == "clear":
+        task_manager.clear_tasks()
     else:
         parser.print_help()
 

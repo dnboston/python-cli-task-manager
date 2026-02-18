@@ -66,3 +66,8 @@ class TaskManager:
             print("Task deleted successfully.")
         except IndexError:
             print("Invalid task index.")
+
+    def clear_tasks(self):
+        self.tasks.clear()
+        save_tasks(self.tasks)
+        print("All tasks cleared.")
