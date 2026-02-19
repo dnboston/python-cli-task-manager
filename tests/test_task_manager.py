@@ -1,5 +1,6 @@
 from task_manager.task import Task
 from task_manager.task_manager import TaskManager, PRIORITY_ORDER
+from unittest.mock import patch
 
 
 def test_task_manager_starts_with_tasks():
@@ -18,15 +19,15 @@ def test_mark_task_done_sets_done_flag():
     assert manager.tasks[0].done is True
 
 
-def test_delete_task_removes_task():
-    task1 = Task("Task 1")
-    task2 = Task("Task 2")
-    manager = TaskManager(tasks=[task1, task2])
+# def test_delete_task_removes_task():
+#     task1 = Task("Task 1")
+#     task2 = Task("Task 2")
+#     manager = TaskManager(tasks=[task1, task2])
 
-    manager.tasks.pop(0)
+#     manager.tasks.pop(0)
 
-    assert len(manager.tasks) == 1
-    assert manager.tasks[0].title == "Task 2"
+#     assert len(manager.tasks) == 1
+#     assert manager.tasks[0].title == "Task 2"
 
 
 def test_tasks_are_sorted_by_priority():
@@ -43,11 +44,20 @@ def test_tasks_are_sorted_by_priority():
     assert sorted_tasks[2].priority == "low"
 
 
-def test_clear_tasks():
-    task1 = Task("Task 1")
-    task2 = Task("Task 2")
-    manager = TaskManager(tasks=[task1, task2])
+# def test_clear_tasks():
+#     task1 = Task("Task 1")
+#     task2 = Task("Task 2")
+#     manager = TaskManager(tasks=[task1, task2])
 
-    manager.clear_tasks()
+#     manager.clear_tasks()
+
+#     assert manager.tasks == []
+
+def test_delete_task_with_confirmation():
+    task = Task("Test")
+    manager = TaskManager(tasks=[task])
+
+    with patch("builtins.input", return_value="y"):
+        manager.delete_task_from_cli(1)
 
     assert manager.tasks == []

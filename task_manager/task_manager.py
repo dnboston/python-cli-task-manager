@@ -61,13 +61,31 @@ class TaskManager:
         
         try:
             task_to_delete = sorted_tasks[index-1]
+
+            if not self._confirm_action(f" Delete task '{task_to_delete.title}'?"):
+                print("Deletion cancelled.")
+                return
+            
             self.tasks.remove(task_to_delete)
             save_tasks(self.tasks)
             print("Task deleted successfully.")
+
         except IndexError:
             print("Invalid task index.")
 
     def clear_tasks(self):
+        if not self.tasks:
+            print("No tasks to clear.")
+            return
+        
+        if not self._confirm_action("Delete ALL tasks?"):
+            print("Clear cancelled.")
+            return
+        
         self.tasks.clear()
         save_tasks(self.tasks)
         print("All tasks cleared.")
+
+    def _confirm_action(self, message):
+        response = input(f"{message} (y/N): ").strip().lower()
+        return response == "y"
