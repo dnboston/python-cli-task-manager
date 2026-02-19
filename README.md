@@ -58,6 +58,6 @@ main.py              # Application entry point
 
 - ✓ Add command-line arguments using argparse
 - ✓ Add task priorities and due dates
-- [] Improve test coverage
+- [ ] Improve test coverage
 - ✓ Add confirmation prompts for destructive actions
-- [] Package the project for installation
+- [ ] Package the project for installation
